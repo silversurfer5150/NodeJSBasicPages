@@ -2,37 +2,41 @@ const http = require('http');
 const fs = require('fs');
 
 var server = http.createServer(function(req, res) {
+let fileName, contentType;
 
 	switch(req.url) {
 		case '/':
 		case '/home':
-			res.writeHead(200, {'Content-Type' : 'text/html'});
-			fs.createReadStream(__dirname + '/index.html').pipe(res);
+			contentType = 'text/html';
+			fileName = '/index.html';
 		break;
 		case '/about':
-			res.writeHead(200, {'Content-Type' : 'text/html'});
-			fs.createReadStream(__dirname + '/about.html').pipe(res);
+			contentType = 'text/html';
+			fileName = '/about.html';
 		break;
 		case '/contact':
-			res.writeHead(200, {'Content-Type' : 'text/html'});
-			fs.createReadStream(__dirname + '/contact.html').pipe(res);
+			contentType = 'text/html';
+			fileName = '/contact.html';
 		break;
 		case '/style.css':
-			res.writeHead(200, {'Content-Type' : 'text/css'});
-			fs.createReadStream(__dirname + '/style.css').pipe(res);
+			contentType = 'text/css';
+			fileName = '/style.css';
 		break;
 		case '/nodeLogo.png':
-			res.writeHead(200, {'Content-Type' : 'img/png'});
-			fs.createReadStream(__dirname + '/nodeLogo.png').pipe(res);
+			contentType = 'img/png';
+			fileName = '/nodeLogo.png';
 		break;
 		case '/favicon.png':
-			res.writeHead(200, {'Content-Type' : 'img/png'});
-			fs.createReadStream(__dirname + '/favicon.png').pipe(res);
+			contentType = 'img/png';
+			fileName = '/favicon.png';
 		break;
 		default:
+			fileName = '/404.html';
 		break;
 	}
-
+	res.writeHead(200, { 'Content-Type' : contentType });
+	fs.createReadStream(__dirname + fileName).pipe(res);
+	console.log(`Request received: ${req.url}`);
 });
 
 server.listen(3000, '127.0.0.1');
