@@ -13,15 +13,12 @@ contentType = 'text/html';
 	switch(req.url) {
 		case '/':
 		case '/home':
-			contentType = 'text/html';
 			fileName = '/index.html';
 		break;
 		case '/about':
-			contentType = 'text/html';
 			fileName = '/about.html';
 		break;
 		case '/contact':
-			contentType = 'text/html';
 			fileName = '/contact.html';
 		break;
 		case '/style.css':
